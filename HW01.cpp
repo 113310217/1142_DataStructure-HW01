@@ -11,7 +11,7 @@ using namespace std;
 // 1. 實作 Linked List 節點與 Stack (Template)
 // ==========================================
 
-// 定義鏈結串列的節點結構，使用 Template 以支援不同資料型態 (如 string, double)
+// 定義鏈結串列的節點結構，使用 Template 以支援不同資料型態
 template <typename T>
 struct Node {
     T data;         // 節點儲存的資料
@@ -30,7 +30,7 @@ public:
     // 初始化時，堆疊為空
     LinkedListStack() : topNode(nullptr) {}
 
-    // 解構子：當堆疊被銷毀時，釋放所有節點的記憶體以避免 Memory Leak
+    // 解構子：當堆疊被銷毀時，釋放所有節點的記憶體
     ~LinkedListStack() {
         while (!isEmpty()) {
             pop();
@@ -90,7 +90,7 @@ int getPrecedence(const string& op) {
 // 負責處理多位數字、小數、負號與減號的區分
 // ==========================================
 vector<string> tokenize(const string& expr) {
-    vector<string> tokens; // 用來存放切割好的 token
+    vector<string> tokens; 
     int n = expr.length();
     int i = 0;
     
@@ -128,7 +128,7 @@ vector<string> tokenize(const string& expr) {
                 i++;
             }
             
-            // 避免只擷取到單獨的 "-"
+            // 避免只擷取到單獨的 "-" (使用者輸入錯誤時)
             if (num_str == "-") {
                 tokens.push_back("-");
             } else {
@@ -254,6 +254,7 @@ double evaluatePostfix(const vector<string>& postfix) {
     double final_result = valStack.peek();
     valStack.pop();
     
+    // 如果計算結束後堆疊還有多餘數字，代表格式錯誤
     if (!valStack.isEmpty()) throw runtime_error("Invalid expression format");
     
     cout << "--------------------" << endl;
@@ -285,6 +286,7 @@ int main() {
         }
 
         try {
+            // 解析與計算
             vector<string> tokens = tokenize(input);
             vector<string> postfix = infixToPostfix(tokens);
             
@@ -302,8 +304,8 @@ int main() {
             }
             
         } 
-        // 捕捉所有預期或未預期的錯誤，統一輸出 "Error"
-        catch (...) {
+        // 捕捉我們丟出的所有 exception，並統一輸出 "=> Error"
+        catch (const exception& e) {
             cout << "=> Error" << endl;
         }
     }
