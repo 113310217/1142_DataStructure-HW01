@@ -19,7 +19,7 @@ struct Node {
     Node(T val) : data(val), next(nullptr) {} // 建構子：初始化資料並將指標設為空
 };
 
-// 使用 Linked List 實作的堆疊類別 (後進先出 LIFO)
+// 使用 Linked List 實作的堆疊類別
 template <typename T>
 class LinkedListStack {
 private:
@@ -36,16 +36,16 @@ public:
         }
     }
 
-    // 將資料推入堆疊頂端 (Push)
+    // 將資料推入堆疊頂端 
     void push(T val) {
         Node<T>* newNode = new Node<T>(val); // 動態配置一個新節點
         newNode->next = topNode;             // 新節點的下一個指向原本的頂端
         topNode = newNode;                   // 將頂端指標更新為新節點
     }
 
-    // 將頂端的資料彈出堆疊 (Pop)
+    // 將頂端的資料彈出堆疊 
     void pop() {
-        if (isEmpty()) {                     // 防呆機制：若堆疊是空的無法再彈出
+        if (isEmpty()) {                     // 若堆疊是空的無法再彈出
             throw runtime_error("錯誤: 堆疊下溢 (Stack underflow)。");
         }
         Node<T>* temp = topNode;             // 暫存目前的頂端節點
@@ -53,9 +53,9 @@ public:
         delete temp;                         // 釋放舊頂端節點的記憶體
     }
 
-    // 查看堆疊頂端的資料，但不移除它 (Peek)
+    // 查看堆疊頂端的資料，但不移除它
     T peek() const {
-        if (isEmpty()) {                     // 防呆機制：若堆疊是空的無法查看
+        if (isEmpty()) {                     // 若堆疊是空的無法查看
             throw runtime_error("錯誤: 堆疊為空 (Stack is empty)。");
         }
         return topNode->data;                // 回傳頂端節點的資料
@@ -99,10 +99,10 @@ vector<string> tokenize(const string& expr) {
             continue;           // 略過不處理
         }
 
-        // 判斷是否為數字開頭（包含正常的數字，或是以小數點開頭且後面緊跟數字的狀況，例如 .5）
+        // 判斷是否為數字開頭
         bool is_digit_start = isdigit(expr[i]) || (expr[i] == '.' && i + 1 < n && isdigit(expr[i + 1]));
         
-        // 判斷是否為一元負號（條件：目前是 '-' 且（位於字串開頭，或前一個 token 是左括號或運算子））
+        // 判斷是否為一元負號
         bool is_negative_sign = (expr[i] == '-') && (tokens.empty() || tokens.back() == "(" || isOperator(tokens.back()));
 
         if (is_digit_start || is_negative_sign) {
@@ -122,7 +122,7 @@ vector<string> tokenize(const string& expr) {
                 num_str += expr[i]; // 拼接到數字字串中
                 i++;                // 指標往後移
             }
-            // 防呆：避免特殊格式下只擷取到一個孤單的負號 "-"
+            // 防呆：避免特殊格式下只擷取到負號
             if (num_str == "-") {
                 tokens.push_back("-"); // 當作減號處理
             } else {
