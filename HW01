@@ -1,11 +1,11 @@
-#include <iostream>    // 引入標準輸入輸出串流庫 (如 cin, cout)
+#include <iostream>   
 #include <string>      // 引入字串庫，用於處理數學表達式字串
 #include <vector>      // 引入動態陣列庫，用於儲存解析後的 Token 陣列
 #include <cmath>       // 引入數學庫，用於計算次方 (pow) 與浮點數取餘 (fmod)
 #include <stdexcept>   // 引入標準例外庫，用於拋出錯誤訊息 (如 runtime_error)
 #include <cctype>      // 引入字元處理庫，用於判斷是否為數字 (isdigit) 或空白 (isspace)
 
-using namespace std;   // 使用標準命名空間，省去每次寫 std:: 的麻煩
+using namespace std;  
 
 // ==========================================
 // 1. 實作 Linked List 節點與 Stack (Template)
@@ -19,7 +19,7 @@ struct Node {
     Node(T val) : data(val), next(nullptr) {} // 建構子：初始化資料並將指標設為空
 };
 
-// 使用 Linked List 實作的堆疊類別 (後進先出 LIFO)
+// 使用 Linked List 實作的堆疊類別
 template <typename T>
 class LinkedListStack {
 private:
@@ -36,7 +36,7 @@ public:
         }
     }
 
-    // 將資料推入堆疊頂端 (Push)
+    // 將資料推入堆疊頂端
     void push(T val) {
         Node<T>* newNode = new Node<T>(val); // 動態配置一個新節點
         newNode->next = topNode;             // 新節點的下一個指向原本的頂端
@@ -45,7 +45,7 @@ public:
 
     // 將頂端的資料彈出堆疊 (Pop)
     void pop() {
-        if (isEmpty()) {                     // 防呆機制：若堆疊是空的無法再彈出
+        if (isEmpty()) {                     // 若堆疊是空的無法再彈出
             throw runtime_error("Error: Stack underflow.");
         }
         Node<T>* temp = topNode;             // 暫存目前的頂端節點
@@ -55,7 +55,7 @@ public:
 
     // 查看堆疊頂端的資料，但不移除它 (Peek/Top)
     T peek() const {
-        if (isEmpty()) {                     // 防呆機制：若堆疊是空的無法查看
+        if (isEmpty()) {                     // 若堆疊是空的無法查看
             throw runtime_error("Error: Stack is empty.");
         }
         return topNode->data;                // 回傳頂端節點的資料
